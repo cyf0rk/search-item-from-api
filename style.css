@@ -1,0 +1,13 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding-top: 30px;
+}
+
+.artikl {
+  margin: 8px 0;
+}
