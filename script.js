@@ -13,36 +13,46 @@
 // }
 
 
-// Fetch data from API
-// fetch('http://apidemo.luceed.hr/datasnap/rest/grupeartikala/lista', requestOptions)
-//   .then(response => response.json())
-//   .then(result => console.log(result))
-//   .catch(error => console.log('error', error))
+// Fetch data from API upon search
+// async function searchName() {
+//   await fetch(`http://apidemo.luceed.hr/datasnap/rest/artikli/naziv/${search.value}`, requestOptions)
+//     .then(response => response.json())
+//     .then(result => productsObj = result.result)
+//     .catch(error => console.log('error', error))
+  
+//   emptyProductList();
+
+//   productsObj[0]['artikli'].forEach(product => {
+//     if (product.naziv.toLowerCase().includes(search.value.toLowerCase())) {
+//       displayData(product);
+//     }
+//   })
+// }
+
 
 let productsObj = {};
 
-function displayData(product) {
-  document.getElementById("product-list").innerHTML += `<div class="artikl col border border-2"><span>Naziv: ${product.naziv}</span><br><span>Šifra: ${product.artikl}</span></div><br>`;
-}
-
-// Fetch data from .json file and store it in a object productsObj
-async function getData() {
-  await fetch('test.json').then(response => response.json()).then(obj => productsObj = obj.result);
-  // console.log(productsObj[0]['artikli'][0].artikl);
-  productsObj[0]['artikli'].forEach(displayData);
-}
-
-getData();
-
-
-let search = document.getElementById('search');
+const search = document.getElementById('search');
 search.oninput = searchName;
 
-function searchName() {
-  document.getElementById("product-list").innerHTML = '';
+// Test - fetch data from .json file and store it in a object productsObj
+async function searchName() {
+  await fetch('test.json').then(response => response.json()).then(obj => productsObj = obj.result);
+  productsObj[0]['artikli'].forEach(displayData);
+
+  emptyProductList();
+
   productsObj[0]['artikli'].forEach(product => {
     if (product.naziv.toLowerCase().includes(search.value.toLowerCase())) {
       displayData(product);
     }
   })
+}
+
+function displayData(product) {
+  document.getElementById("product-list").innerHTML += `<div class="artikl col border border-2"><span>Naziv: ${product.naziv}</span><br><span>Šifra: ${product.artikl}</span></div><br>`;
+}
+
+function emptyProductList() {
+  document.getElementById("product-list").innerHTML = '';
 }
