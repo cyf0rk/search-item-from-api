@@ -56,3 +56,4 @@ function displayData(product) {
 function emptyProductList() {
   document.getElementById("product-list").innerHTML = '';
 }
+
